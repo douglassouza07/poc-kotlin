@@ -5,6 +5,7 @@ import br.com.poc.exception.BusinessException
 import br.com.poc.kafka.KafkaProducer
 import br.com.poc.model.User
 import br.com.poc.repository.UserRepository
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -14,6 +15,8 @@ class UserService(
     private val kafkaProducer: KafkaProducer
 
 ) {
+    @Value("\${topic-user}")
+    lateinit var topic : String
     fun save(user: User): User {
         user.documento?.let {
             val vo: User? = userRepository.findByDocumento(user.documento);
@@ -23,7 +26,7 @@ class UserService(
         }
         user.status = StatusUser.PRECADASTRO
         userRepository.save(user);
-        kafkaProducer.send(user)
+        kafkaProducer.send(topic,user)
         return user;
     }
 }
