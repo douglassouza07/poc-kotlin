@@ -1,5 +1,4 @@
-# poc-kotlin
-Sugestão de POC para utilizar Kafka com Kotlin:
+# Sugestão de POC para utilizar Kafka com Kotlin:
 
 
 
