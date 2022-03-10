@@ -1,4 +1,4 @@
-package br.com.poc.dto
+package br.com.poc.util
 
 enum class StatusUser {
     PRECADASTRO,ATIVO

@@ -1,32 +1,40 @@
 package br.com.poc.service
 
-import br.com.poc.dto.StatusUser
 import br.com.poc.exception.BusinessException
-import br.com.poc.kafka.KafkaProducer
+import br.com.poc.kafka.UserProducer
 import br.com.poc.model.User
 import br.com.poc.repository.UserRepository
-import org.springframework.beans.factory.annotation.Value
+import br.com.poc.util.ValidateDocument
 import org.springframework.stereotype.Service
-import java.util.*
+
 
 @Service
 class UserService(
     private val userRepository: UserRepository,
-    private val kafkaProducer: KafkaProducer
-
+    private val userProducer: UserProducer,
+    private val validateDocument: ValidateDocument
 ) {
-    @Value("\${topic-user}")
-    lateinit var topic : String
     fun save(user: User): User {
-        user.documento?.let {
-            val vo: User? = userRepository.findByDocumento(user.documento);
-            if (Objects.nonNull(vo)) {
-                throw BusinessException("O cpf/cnpj ja esta cadastrado");
-            }
-        }
-        user.status = StatusUser.PRECADASTRO
+        validate(user);
         userRepository.save(user);
-        kafkaProducer.send(topic,user)
+        userProducer.send(user)
         return user;
     }
+
+    fun update(user: User): User {
+        userRepository.save(user);
+        return user;
+    }
+
+    fun list(): List<User> {
+        return userRepository.findAll();
+    }
+
+    fun validate(user: User) {
+        userRepository.findByDocument(user.document)?.let {
+            throw BusinessException("O cpf/cnpj ja esta cadastrado")
+        }
+        validateDocument.cpfCnpj(user);
+    }
+
 }
