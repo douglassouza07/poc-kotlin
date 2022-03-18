@@ -12,11 +12,11 @@ data class UserDto(
     val document: String? = null,
 
     @get:NotEmpty(message = "O nome é obrigatorio")
-    @get:Size(min = 5, message = "O nome não pode ter menos de 5 caracetere")
+    @get:Size(min = 5, message = "O nome não pode ter menos de 5 caracteres")
     val name: String? = null,
 
     @get:NotEmpty(message = "O Endereco é obrigatorio")
-    @get:Size(min = 10, message = "O Endereco é obrigatorio")
+    @get:Size(min = 10, message = "O Endereco não pode ter menos de 10 caracteres")
     val address: String? = null,
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")

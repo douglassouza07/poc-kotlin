@@ -23,8 +23,6 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-validation:2.6.2")
-	implementation("com.google.code.gson:gson:2.9.0")
-    implementation("org.projectlombok:lombok:1.18.20")
     runtimeOnly("com.h2database:h2")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 

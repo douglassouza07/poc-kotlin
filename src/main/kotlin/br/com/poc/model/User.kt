@@ -1,7 +1,7 @@
 package br.com.poc.model
 
-import br.com.poc.util.StatusUser
 import br.com.poc.util.DocumentType
+import br.com.poc.util.StatusUser
 import com.fasterxml.jackson.annotation.JsonFormat
 import java.util.*
 import javax.persistence.Entity
@@ -19,12 +19,12 @@ data class User(
 
     val name: String? = null,
 
-    var status: StatusUser = StatusUser.PRECADASTRO,
+    var status: StatusUser? = null,
 
     val address: String? = null,
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     val birth: Date? = null,
 
-    var documentType: DocumentType = DocumentType.CPF
+    var documentType: DocumentType? = null
 )

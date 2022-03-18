@@ -1,27 +1,9 @@
 package br.com.poc.util
 
-import br.com.poc.exception.BusinessException
-import br.com.poc.model.User
 import org.springframework.stereotype.Component
 
 @Component
 class ValidateDocument {
-    fun cpfCnpj(user: User): User {
-        when (user.document?.length) {
-            11 -> {
-                if (checkCpf(user.document)) user.documentType = DocumentType.CPF
-                else throw BusinessException("CPF inválido")
-            }
-            14 -> {
-                if (checkCnpj(user.document)) user.documentType = DocumentType.CNPJ
-                else throw BusinessException("CNPJ inválido")
-            }
-            else -> {
-                throw BusinessException("Não é um CPF nem CNPJ válido.")
-            }
-        }
-        return user;
-    }
 
     fun checkCpf(document: String): Boolean {
         var calc: Int
