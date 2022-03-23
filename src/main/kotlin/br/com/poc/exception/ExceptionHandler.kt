@@ -1,6 +1,7 @@
 package br.com.poc.exception
 
 import br.com.poc.dto.ErrorView
+import com.fasterxml.jackson.databind.exc.InvalidFormatException
 import org.springframework.http.HttpStatus
 import org.springframework.validation.BindingResult
 import org.springframework.web.bind.MethodArgumentNotValidException
@@ -36,6 +37,20 @@ class ExceptionHandler {
             status = HttpStatus.BAD_REQUEST.value(),
             error = HttpStatus.BAD_REQUEST.name,
             message = mapBindingResult(exception.bindingResult),
+            path = request.servletPath
+        )
+    }
+
+    @ExceptionHandler(InvalidFormatException::class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    fun handleInvalidFormatException(
+        exception: InvalidFormatException,
+        request: HttpServletRequest
+    ): ErrorView {
+        return ErrorView(
+            status = HttpStatus.BAD_REQUEST.value(),
+            error = HttpStatus.BAD_REQUEST.name,
+            message = exception.originalMessage,
             path = request.servletPath
         )
     }

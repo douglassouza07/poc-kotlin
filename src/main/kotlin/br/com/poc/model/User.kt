@@ -1,31 +1,30 @@
 package br.com.poc.model
 
-import br.com.poc.dto.StatusUser
-import java.time.LocalDate
+import br.com.poc.util.DocumentType
+import br.com.poc.util.StatusUser
+import com.fasterxml.jackson.annotation.JsonFormat
+import java.util.*
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
-import javax.validation.constraints.NotEmpty
-import javax.validation.constraints.NotNull
-import javax.validation.constraints.Size
 
-@Entity(name = "Usuario")
+
+@Entity(name = "User")
 data class User(
-    @Id @GeneratedValue
-    val id: Long? = null,
+    @Id
+    @GeneratedValue
+    val id: Long = 0,
 
-    @field:NotEmpty(message = "O documento é obrigatorio")
-    val documento: String? = null,
+    val document: String? = null,
 
-    @field:Size(min= 5, message = "O nome não pode ter menos de 5 caracetere")
-    val nome: String? = null,
+    val name: String? = null,
 
     var status: StatusUser? = null,
 
-    @field:Size(min= 10,message = "O Endereco  é obrigatorio")
-    val endereco: String? = null,
+    val address: String? = null,
 
-    @field:NotNull(message = "A data de nascsimento é obrigatorio")
-    val dtNascimento: LocalDate? = null
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    val birth: Date? = null,
 
+    var documentType: DocumentType? = null
 )
