@@ -16,7 +16,7 @@ class UserConsumer(
 
     @KafkaListener(topics = ["user-topic"], groupId = "topic_cadastro-consumer")
     fun processMessage(user: User) {
-        log.info("consumindo mensagem user-topic {}", user)
+        log.info("Recebendo mensagem user-topic {}", user)
         user.status = StatusUser.ATIVO
         userService.update(user);
         log.info("User atualizado com sucesso {}")
